@@ -40,5 +40,5 @@ export const PROFILE = {
 	location: 'HCM, VN',
 	email: 'tuanht.unix@gmail.com',
 	mobile: '090xxxxxxx',
-	website: 'https://tuanht.net',
+	website: 'https://tuanht.dev',
 } as const;

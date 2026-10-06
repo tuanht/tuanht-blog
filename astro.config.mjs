@@ -4,7 +4,7 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://tuanht.net',
+	site: 'https://tuanht.dev',
 	integrations: [icon()],
 	fonts: [
 		{
