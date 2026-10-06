@@ -17,7 +17,7 @@
 	--dark: #252525;
 
 	--font-body: 'Lucida Grande', 'Liberation Sans', 'Tahoma', 'Arial', sans-serif;
-	--font-display: 'Oswald', sans-serif;
+	--font-display: var(--font-oswald), sans-serif;
 	--font-mono: 'Monaco', 'Inconsolata', 'Liberation Mono', 'Consolas', monospace;
 	--font-quote: 'Georgia', 'Liberation Serif', 'Times New Roman', serif;
 
