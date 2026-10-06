@@ -1,0 +1,39 @@
+---
+import { SITE, MENU, type MenuItem } from '../site.config';
+
+const path = Astro.url.pathname;
+const isCurrent = (item: MenuItem): boolean =>
+	(item.href !== '/' && path.startsWith(item.href)) || !!item.children?.some(isCurrent);
+---
+
+<header id="header">
+	<div id="branding">
+		<div id="blog-title">
+			<a href="/" title={SITE.title} rel="home">{SITE.title}</a>
+		</div>
+	</div>
+	<nav id="access" aria-label="Primary">
+		<div class="menu">
+			<ul class="sf-menu">
+				{
+					MENU.map((item) => (
+						<li class:list={['menu-item', { 'current-menu-item': isCurrent(item) }]}>
+							<a href={item.href} aria-current={isCurrent(item) ? 'page' : undefined}>
+								{item.label}
+							</a>
+							{item.children && (
+								<ul class="sub-menu">
+									{item.children.map((child) => (
+										<li class="menu-item">
+											<a href={child.href}>{child.label}</a>
+										</li>
+									))}
+								</ul>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</nav>
+</header>

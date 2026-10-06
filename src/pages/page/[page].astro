@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import Pagination from '../../components/Pagination.astro';
+import { getPosts, pageCount, paginate } from '../../lib/posts';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	const total = pageCount(posts.length);
+	return Array.from({ length: total - 1 }, (_, i) => {
+		const page = i + 2;
+		return { params: { page: String(page) }, props: { posts: paginate(posts, page), page, total } };
+	});
+}
+
+const { posts, page, total } = Astro.props;
+---
+
+<Base title={`Page ${page}`} bodyClass="home blog paged">
+	<PostList posts={posts} />
+	<Pagination current={page} total={total} />
+</Base>

@@ -1,0 +1,12 @@
+---
+import PostSummary from './PostSummary.astro';
+import type { Post } from '../lib/posts';
+
+interface Props {
+	posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts.map((post) => <PostSummary post={post} />)}

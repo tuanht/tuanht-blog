@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { getPosts, groupByTerm, monthKey, pad } from '../lib/posts';
+
+const posts = await getPosts();
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const counts = new Set(
+	posts.map((p) => {
+		const { year, month } = monthKey(p.data.date);
+		return `${year}/${month}`;
+	}),
+);
+const years = [...new Set(posts.map((p) => monthKey(p.data.date).year))];
+
+const categories = groupByTerm(posts, 'categories');
+const rows = Array.from({ length: Math.ceil(categories.length / 2) }, (_, i) =>
+	categories.slice(i * 2, i * 2 + 2),
+);
+---
+
+<Base title="Archives" bodyClass="page page-template-archives" fullwidth>
+	<article class="hentry page">
+		<h1 class="entry-title">Archives</h1>
+		<div class="entry-content">
+			<h2>By Year &amp; Month</h2>
+			<ul class="archive-years">
+				{
+					years.map((year) => (
+						<li>
+							<strong>{year}</strong>{' '}
+							{MONTHS.map((name, i) => {
+								const month = pad(i + 1);
+								return counts.has(`${year}/${month}`) ? (
+									<a href={`/archive/${year}/${month}/`}>{name}</a>
+								) : (
+									<span class="emptymonth">{name}</span>
+								);
+							})}
+						</li>
+					))
+				}
+			</ul>
+
+			<h2>By Category</h2>
+			{
+				rows.map((row) => (
+					<div class="category-wrap">
+						{row.map((c, i) => (
+							<div class={i === 0 ? 'category-left' : 'category-right'}>
+								<h3>
+									<a href={`/category/${c.slug}/`}>{c.name}</a>
+								</h3>
+								<ul>
+									{c.posts.map((p) => (
+										<li>
+											<a href={`/posts/${p.id}/`}>{p.data.title}</a>
+										</li>
+									))}
+								</ul>
+							</div>
+						))}
+					</div>
+				))
+			}
+		</div>
+	</article>
+</Base>

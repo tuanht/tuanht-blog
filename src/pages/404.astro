@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not Found" bodyClass="error404">
+	<article class="hentry error404">
+		<h1 class="entry-title">Not Found</h1>
+		<div class="entry-content">
+			<p>Apologies, but we were unable to find what you were looking for. Perhaps searching will help.</p>
+			<form id="error404-searchform" method="get" action="/search/">
+				<div>
+					<input id="error404-s" name="q" type="text" aria-label="Search" />
+					<input id="error404-searchsubmit" type="submit" value="Find" />
+				</div>
+			</form>
+		</div>
+	</article>
+</Base>

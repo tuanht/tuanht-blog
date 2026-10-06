@@ -1,0 +1,67 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../site.config';
+import { getPosts, formatDate, slugify } from '../../lib/posts';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { title, description, date, categories, tags } = post.data;
+const { Content } = await render(post);
+const permalink = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<Base title={title} description={description} bodyClass="single single-post">
+	<article id={`post-${post.id}`} class="hentry post">
+		<h1 class="entry-title">{title}</h1>
+		<div class="entry-meta">
+			<span class="meta-prep meta-prep-author">By </span>
+			<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
+			<span class="meta-sep meta-sep-entry-date"> | </span>
+			<span class="meta-prep meta-prep-entry-date">Published: </span>
+			<span class="entry-date">
+				<time datetime={date.toISOString()}>{formatDate(date)}</time>
+			</span>
+		</div>
+		<div class="entry-content">
+			<Content />
+		</div>
+		<div class="entry-utility">
+			This entry was posted{' '}
+			{
+				categories.length > 0 && (
+					<>
+						in{' '}
+						<span class="cat-links">
+							{categories.map((c, i) => (
+								<>
+									{i > 0 && ', '}
+									<a href={`/category/${slugify(c)}/`}>{c}</a>
+								</>
+							))}
+						</span>
+					</>
+				)
+			}
+			{
+				tags.length > 0 && (
+					<>
+						{categories.length > 0 && ' and '}tagged{' '}
+						<span class="tag-links">
+							{tags.map((t, i) => (
+								<>
+									{i > 0 && ', '}
+									<a href={`/tag/${slugify(t)}/`}>{t}</a>
+								</>
+							))}
+						</span>
+					</>
+				)
+			}. Bookmark the <a href={permalink} title={`Permalink to ${title}`}>permalink</a>.
+		</div>
+	</article>
+</Base>

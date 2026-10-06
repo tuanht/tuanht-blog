@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PostList from '../../../components/PostList.astro';
+import { getPosts, monthKey, formatDate } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+	const buckets = new Map<string, Awaited<ReturnType<typeof getPosts>>>();
+	for (const post of await getPosts()) {
+		const { year, month } = monthKey(post.data.date);
+		const key = `${year}/${month}`;
+		buckets.set(key, [...(buckets.get(key) ?? []), post]);
+	}
+	return [...buckets.entries()].map(([key, posts]) => {
+		const [year, month] = key.split('/');
+		return { params: { year, month }, props: { posts } };
+	});
+}
+
+const { posts } = Astro.props;
+const label = formatDate(posts[0].data.date, { month: 'long', year: 'numeric' });
+---
+
+<Base title={`Archives: ${label}`} bodyClass="archive date">
+	<h1 class="page-title">Monthly Archives: <span>{label}</span></h1>
+	<PostList posts={posts} />
+</Base>

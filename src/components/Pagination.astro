@@ -1,0 +1,45 @@
+---
+import { pageHref } from '../lib/posts';
+
+interface Props {
+	current: number;
+	total: number;
+}
+
+const { current, total } = Astro.props;
+const span = 2;
+const first = Math.max(1, current - span);
+const last = Math.min(total, current + span);
+const numbers = Array.from({ length: last - first + 1 }, (_, i) => first + i);
+---
+
+{
+	total > 1 && (
+		<nav id="nav-below" class="navigation wp-pagenavi" aria-label="Pagination">
+			<span class="pages">
+				Page {current} of {total}
+			</span>
+			{first > 1 && (
+				<>
+					<a class="first" href={pageHref(1)}>&laquo; First</a>
+					{first > 2 && <span class="extend">...</span>}
+				</>
+			)}
+			{current > 1 && <a class="previouspostslink" rel="prev" href={pageHref(current - 1)}>&laquo;</a>}
+			{numbers.map((n) =>
+				n === current ? (
+					<span class="current" aria-current="page">{n}</span>
+				) : (
+					<a class="page" href={pageHref(n)}>{n}</a>
+				),
+			)}
+			{current < total && <a class="nextpostslink" rel="next" href={pageHref(current + 1)}>&raquo;</a>}
+			{last < total && (
+				<>
+					{last < total - 1 && <span class="extend">...</span>}
+					<a class="last" href={pageHref(total)}>Last &raquo;</a>
+				</>
+			)}
+		</nav>
+	)
+}

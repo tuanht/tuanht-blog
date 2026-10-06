@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import Pagination from '../components/Pagination.astro';
+import { getPosts, pageCount, paginate } from '../lib/posts';
+
+const posts = await getPosts();
+---
+
+<Base bodyClass="home blog">
+	<PostList posts={paginate(posts, 1)} />
+	<Pagination current={1} total={pageCount(posts.length)} />
+</Base>

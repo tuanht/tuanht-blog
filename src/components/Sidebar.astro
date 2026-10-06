@@ -1,0 +1,68 @@
+---
+import SearchForm from './SearchForm.astro';
+import { MENU, SOCIAL } from '../site.config';
+import { getPosts, groupByTerm } from '../lib/posts';
+
+const categories = groupByTerm(await getPosts(), 'categories');
+---
+
+<aside id="primary" class="aside main-aside">
+	<ul class="xoxo">
+		{
+			SOCIAL.length > 0 && (
+				<li id="follow" class="widgetcontainer">
+					<h3 class="widgettitle">Follow</h3>
+					<p>Subscribe to new posts or find me elsewhere.</p>
+					<p>
+						{SOCIAL.map((s) => (
+							<a href={s.href} title={s.label}>
+								<img src={`/img/${s.icon}-icon-round.png`} alt={s.label} width="32" height="32" />
+							</a>
+						))}
+					</p>
+				</li>
+			)
+		}
+	</ul>
+</aside>
+
+<aside id="secondary" class="aside main-aside">
+	<ul class="xoxo">
+		<li class="widgetcontainer widget_search">
+			<SearchForm />
+		</li>
+		<li class="widgetcontainer widget_pages">
+			<h3 class="widgettitle">Pages</h3>
+			<ul>
+				{
+					MENU.map((item) => (
+						<li>
+							<a href={item.href}>{item.label}</a>
+							{item.children && (
+								<ul class="children">
+									{item.children.map((child) => (
+										<li>
+											<a href={child.href}>{child.label}</a>
+										</li>
+									))}
+								</ul>
+							)}
+						</li>
+					))
+				}
+			</ul>
+		</li>
+		<li class="widgetcontainer widget_categories">
+			<h3 class="widgettitle">Categories</h3>
+			<ul>
+				{
+					categories.map((c) => (
+						<li class="cat-item">
+							<a href={`/category/${c.slug}/`}>{c.name}</a>
+						</li>
+					))
+				}
+			</ul>
+		</li>
+	</ul>
+</aside>

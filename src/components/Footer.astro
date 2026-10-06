@@ -1,0 +1,73 @@
+---
+import { SITE } from '../site.config';
+import { getPosts, groupByTerm, monthKey, formatDate } from '../lib/posts';
+
+const posts = await getPosts();
+const recent = posts.slice(0, SITE.footerPostCount);
+const tags = groupByTerm(posts, 'tags');
+
+const months = new Map<string, { year: string; month: string; date: Date }>();
+for (const post of posts) {
+	const { year, month } = monthKey(post.data.date);
+	months.set(`${year}/${month}`, { year, month, date: post.data.date });
+}
+---
+
+<footer id="footer">
+	<div id="subsidiary">
+		<aside id="first" class="aside sub-aside">
+			<ul class="xoxo">
+				<li class="widgetcontainer">
+					<h3 class="widgettitle">Recent Posts</h3>
+					<ul>
+						{
+							recent.map((p) => (
+								<li>
+									<a href={`/posts/${p.id}/`}>{p.data.title}</a>
+								</li>
+							))
+						}
+					</ul>
+				</li>
+			</ul>
+		</aside>
+		<aside id="second" class="aside sub-aside">
+			<ul class="xoxo">
+				<li class="widgetcontainer">
+					<h3 class="widgettitle">Archives</h3>
+					<ul>
+						{
+							[...months.values()].map((m) => (
+								<li>
+									<a href={`/archive/${m.year}/${m.month}/`}>
+										{formatDate(m.date, { month: 'long', year: 'numeric' })}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</li>
+			</ul>
+		</aside>
+		<aside id="third" class="aside sub-aside">
+			<ul class="xoxo">
+				<li class="widgetcontainer">
+					<h3 class="widgettitle">Tags</h3>
+					<ul>
+						{
+							tags.map((t) => (
+								<li>
+									<a href={`/tag/${t.slug}/`}>{t.name}</a>
+								</li>
+							))
+						}
+					</ul>
+				</li>
+			</ul>
+		</aside>
+	</div>
+	<div id="siteinfo">
+		&copy; {new Date().getFullYear()} <a href="/">{SITE.author}</a>. Built with{' '}
+		<a href="https://astro.build">Astro</a>.
+	</div>
+</footer>

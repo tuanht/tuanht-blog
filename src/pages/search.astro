@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Search" bodyClass="search">
+	<h1 class="page-title">Search Results for: <span id="query"></span></h1>
+	<div id="results"></div>
+</Base>
+
+<script>
+	interface Entry {
+		title: string;
+		description: string;
+		url: string;
+		date: string;
+		terms: string[];
+	}
+
+	const q = new URLSearchParams(location.search).get('q')?.trim() ?? '';
+	const results = document.getElementById('results')!;
+	document.getElementById('query')!.textContent = q;
+
+	const el = <K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string) => {
+		const node = document.createElement(tag);
+		if (className) node.className = className;
+		if (text) node.textContent = text;
+		return node;
+	};
+
+	const entries: Entry[] = await (await fetch('/search.json')).json();
+	const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+	const hits = words.length
+		? entries.filter((e) => {
+				const haystack = [e.title, e.description, ...e.terms].join(' ').toLowerCase();
+				return words.every((w) => haystack.includes(w));
+			})
+		: [];
+
+	if (hits.length === 0) {
+		results.append(el('p', '', 'Nothing found. Try a different search.'));
+	}
+	for (const hit of hits) {
+		const article = el('article', 'hentry');
+		const title = el('h2', 'entry-title');
+		const link = el('a', '', hit.title);
+		link.href = hit.url;
+		title.append(link);
+		const content = el('div', 'entry-content');
+		content.append(el('p', '', hit.description));
+		article.append(title, content);
+		results.append(article);
+	}
+</script>
