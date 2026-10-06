@@ -1,12 +1,81 @@
 ---
 import { Icon } from 'astro-icon/components';
 import SearchForm from './SearchForm.astro';
-import { MENU, SOCIAL } from '../site.config';
+import { MENU, PROFILE, SOCIAL } from '../site.config';
 import { getPosts, groupByTerm } from '../lib/posts';
 
+interface Props {
+	/** Show only the avatar and personal info. */
+	profile?: boolean;
+}
+
+const { profile = false } = Astro.props;
 const categories = groupByTerm(await getPosts(), 'categories');
 ---
 
+{
+	profile && (
+		<aside id="primary" class="aside main-aside profile-aside">
+			<ul class="xoxo">
+				<li id="profile" class="widgetcontainer">
+					<img class="avatar" src={PROFILE.avatar} alt={PROFILE.name} width="160" height="160" />
+					<h3 class="widgettitle">{PROFILE.name}</h3>
+					{PROFILE.title && <p class="profile-title">{PROFILE.title}</p>}
+					{PROFILE.bio && <p>{PROFILE.bio}</p>}
+					<dl class="profile-info">
+						{PROFILE.location && (
+							<>
+								<dt>Location</dt>
+								<dd>{PROFILE.location}</dd>
+							</>
+						)}
+						{PROFILE.email && (
+							<>
+								<dt>Email</dt>
+								<dd>
+									<a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+								</dd>
+							</>
+						)}
+						{PROFILE.mobile && (
+							<>
+								<dt>Mobile</dt>
+								<dd>
+									{/^[+\d\s.-]+$/.test(PROFILE.mobile) ? (
+										<a href={`tel:${PROFILE.mobile.replace(/[^+\d]/g, '')}`}>{PROFILE.mobile}</a>
+									) : (
+										PROFILE.mobile
+									)}
+								</dd>
+							</>
+						)}
+						{PROFILE.website && (
+							<>
+								<dt>Website</dt>
+								<dd>
+									<a href={PROFILE.website}>{PROFILE.website.replace(/^https?:\/\//, '')}</a>
+								</dd>
+							</>
+						)}
+					</dl>
+					{SOCIAL.length > 0 && (
+						<p class="profile-social">
+							{SOCIAL.map((s) => (
+								<a href={s.href} title={s.label} aria-label={s.label}>
+									<Icon name={s.icon} size={28} />
+								</a>
+							))}
+						</p>
+					)}
+				</li>
+			</ul>
+		</aside>
+	)
+}
+
+{
+	!profile && (
+		<>
 <aside id="primary" class="aside main-aside">
 	<ul class="xoxo">
 		{
@@ -67,3 +136,6 @@ const categories = groupByTerm(await getPosts(), 'categories');
 		</li>
 	</ul>
 </aside>
+		</>
+	)
+}

@@ -16,6 +16,7 @@ export interface MenuItem {
 
 /** Primary menu and sidebar "Pages" widget. Nested `children` render as a dropdown. */
 export const MENU: MenuItem[] = [
+	{ label: 'Resume', href: '/resume/' },
 	{ label: 'Archives', href: '/archives/' },
 	{ label: 'About', href: '/about/' },
 ];
@@ -29,3 +30,15 @@ export const SOCIAL = [
 	{ label: 'LinkedIn', href: '', icon: 'simple-icons:linkedin' },
 	{ label: 'YouTube', href: '', icon: 'simple-icons:youtube' },
 ].filter((s) => s.href);
+
+/** Personal info shown in the sidebar on the Resume page. Empty fields are hidden. */
+export const PROFILE = {
+	name: 'Tuan Ha',
+	title: 'Software Engineer',
+	avatar: '/img/avatar.webp',
+	bio: 'I write about programming, Linux and the books I read.',
+	location: 'HCM, VN',
+	email: 'tuanht.unix@gmail.com',
+	mobile: '090xxxxxxx',
+	website: 'https://tuanht.net',
+} as const;

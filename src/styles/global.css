@@ -900,6 +900,54 @@ input[type='button']:hover {
 	fill: currentColor;
 }
 
+/* Profile box (Resume page) */
+#profile .avatar {
+	display: block;
+	margin: 0 auto 12px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 3px #fff;
+}
+
+#profile .profile-title {
+	color: var(--coral);
+}
+
+#profile .profile-info {
+	margin: 12px 0;
+	text-align: left;
+}
+
+#profile dt {
+	color: var(--muted);
+	font-family: var(--font-display);
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+#profile dd {
+	margin: 0 0 8px;
+	color: #fff;
+	overflow-wrap: anywhere;
+}
+
+#main #profile a {
+	color: #fff;
+}
+
+#main #profile a:hover {
+	color: var(--coral);
+}
+
+#profile .profile-social a {
+	display: inline-block;
+	padding: 0 8px;
+}
+
+#profile svg {
+	display: block;
+	fill: currentColor;
+}
+
 /* =Footer
 -------------------------------------------------------------- */
 
