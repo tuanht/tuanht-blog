@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import SearchForm from './SearchForm.astro';
 import { MENU, SOCIAL } from '../site.config';
 import { getPosts, groupByTerm } from '../lib/posts';
@@ -15,8 +16,8 @@ const categories = groupByTerm(await getPosts(), 'categories');
 					<p>Subscribe to new posts or find me elsewhere.</p>
 					<p>
 						{SOCIAL.map((s) => (
-							<a href={s.href} title={s.label}>
-								<img src={`/img/${s.icon}-icon-round.png`} alt={s.label} width="32" height="32" />
+							<a href={s.href} title={s.label} aria-label={s.label}>
+								<Icon name={s.icon} size={28} />
 							</a>
 						))}
 					</p>

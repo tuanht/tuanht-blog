@@ -2,6 +2,7 @@ export const SITE = {
 	title: '/blog/tuanht',
 	description: 'Notes on programming, Linux and books by Tuan Ha.',
 	author: 'Tuan Ha',
+	repo: 'https://github.com/tuanht/tuanht-blog',
 	lang: 'en',
 	postsPerPage: 5,
 	footerPostCount: 5,
@@ -16,16 +17,15 @@ export interface MenuItem {
 /** Primary menu and sidebar "Pages" widget. Nested `children` render as a dropdown. */
 export const MENU: MenuItem[] = [
 	{ label: 'Archives', href: '/archives/' },
-	{ label: 'License', href: '/license/' },
 	{ label: 'About', href: '/about/' },
 ];
 
-/** Icons in the sidebar "Follow" box. Entries with an empty `href` are hidden. */
+/** Icons in the sidebar "Follow" box, any `simple-icons:*` name. Entries with an empty `href` are hidden. */
 export const SOCIAL = [
-	{ label: 'RSS', href: '/rss.xml', icon: 'rss' },
-	{ label: 'Twitter', href: '', icon: 'twitter' },
-	{ label: 'Facebook', href: '', icon: 'facebook' },
-	{ label: 'LinkedIn', href: '', icon: 'linkedin' },
-	{ label: 'YouTube', href: '', icon: 'youtube' },
-	{ label: 'Email', href: '', icon: 'email' },
+	{ label: 'RSS', href: '/rss.xml', icon: 'simple-icons:rss' },
+	{ label: 'GitHub', href: 'https://github.com/tuanht', icon: 'simple-icons:github' },
+	{ label: 'X', href: '', icon: 'simple-icons:x' },
+	{ label: 'Facebook', href: '', icon: 'simple-icons:facebook' },
+	{ label: 'LinkedIn', href: '', icon: 'simple-icons:linkedin' },
+	{ label: 'YouTube', href: '', icon: 'simple-icons:youtube' },
 ].filter((s) => s.href);

@@ -11,3 +11,12 @@ Use `Ctrl-R` to search history. Use `!!` to repeat the last command.
 1. `cd -` jumps back to the previous directory.
 2. `sudo !!` reruns the last command as root.
 3. `xargs` turns lines into arguments.
+
+```php
+<?php
+
+class OBJJ {
+    
+}
+
+```
