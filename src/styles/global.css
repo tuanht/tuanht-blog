@@ -1049,14 +1049,26 @@ input[type='button']:hover {
 	color: var(--coral);
 }
 
-#profile .profile-social a {
+/* Social icons, shared by the Resume sidebar and the footer */
+#site .social-links a {
 	display: inline-block;
 	padding: 0 8px;
+	color: #fff;
 }
 
-#profile svg {
+#site .social-links a:hover {
+	color: var(--coral);
+}
+
+#site .social-links svg {
 	display: block;
 	fill: currentColor;
+}
+
+/* `#footer-widgets *` would otherwise pin the svg and its <use> child to a fixed colour. */
+#site .social-links svg,
+#site .social-links svg * {
+	color: inherit;
 }
 
 /* =Footer
@@ -1115,29 +1127,8 @@ input[type='button']:hover {
 	margin-bottom: 8px;
 }
 
-#follow p {
-	margin: 5px 0 0 3px;
-}
-
-#footer-widgets #follow a {
-	display: inline-block;
-	padding: 0 8px 0 0;
-	color: #fff;
-}
-
-#footer-widgets #follow a:hover {
-	color: var(--coral);
-}
-
-#follow svg {
-	display: block;
-	fill: currentColor;
-}
-
-/* Beats `#footer-widgets *`, which also hits the svg and its <use> child. */
-#footer-widgets #follow svg,
-#footer-widgets #follow svg * {
-	color: inherit;
+#follow .social-links {
+	margin: 5px 0 0 -5px;
 }
 
 #footer-widgets a {

@@ -10,7 +10,7 @@ import { SITE, SOCIAL } from '../site.config';
 			{
 				SOCIAL.length > 0 && (
 					<div id="follow">
-						<p>
+						<p class="social-links">
 							{SOCIAL.map((s) => (
 								<a href={s.href} title={s.label} aria-label={s.label}>
 									<Icon name={s.icon} size={28} />
