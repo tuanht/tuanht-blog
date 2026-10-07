@@ -13,13 +13,11 @@ interface Props {
 	image?: string;
 	/** Body classes, e.g. "home", "single", "archive". */
 	bodyClass?: string;
-	/** Full-width page without the sidebar. */
-	fullwidth?: boolean;
-	/** Sidebar shows only the avatar and personal info. */
+	/** Sidebar shows only the avatar and personal info; all other pages are full width. */
 	profile?: boolean;
 }
 
-const { title, description = SITE.description, image = SITE.ogImage, bodyClass = '', fullwidth = false, profile = false } = Astro.props;
+const { title, description = SITE.description, image = SITE.ogImage, bodyClass = '', profile = false } = Astro.props;
 const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Link previews need an absolute image URL.
@@ -61,7 +59,7 @@ const ogImage = new URL(image, Astro.site);
 		<link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
 		<Font cssVariable="--font-oswald" preload />
 	</head>
-	<body class:list={[bodyClass, { fullwidth, 'has-profile': profile }]}>
+	<body class:list={[bodyClass, { fullwidth: !profile, 'has-profile': profile }]}>
 		<div id="site" class="hfeed">
 			<Header />
 			<div id="layout">
@@ -70,7 +68,7 @@ const ogImage = new URL(image, Astro.site);
 						<slot />
 					</main>
 				</div>
-				{!fullwidth && <Sidebar profile={profile} />}
+				{profile && <Sidebar />}
 			</div>
 			<Footer />
 		</div>

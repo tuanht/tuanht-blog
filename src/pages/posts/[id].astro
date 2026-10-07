@@ -20,7 +20,7 @@ const category = categories[0];
 const permalink = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
-<Base title={title} description={description} image={image ?? `/og/${post.id}.png`} bodyClass="is-post" fullwidth>
+<Base title={title} description={description} image={image ?? `/og/${post.id}.png`} bodyClass="is-post">
 	<div class="post-column">
 	<nav class="breadcrumb" aria-label="Breadcrumb">
 		<a href="/">Home</a> &raquo;{' '}

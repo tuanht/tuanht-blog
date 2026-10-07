@@ -1,63 +1,28 @@
 ---
-import { SITE } from '../site.config';
-import { getPosts, groupByTerm, monthKey, formatDate } from '../lib/posts';
-
-const posts = await getPosts();
-const recent = posts.slice(0, SITE.footerPostCount);
-const tags = groupByTerm(posts, 'tags');
-
-const months = new Map<string, { year: string; month: string; date: Date }>();
-for (const post of posts) {
-	const { year, month } = monthKey(post.data.date);
-	months.set(`${year}/${month}`, { year, month, date: post.data.date });
-}
+import { Icon } from 'astro-icon/components';
+import SearchForm from './SearchForm.astro';
+import { SITE, SOCIAL } from '../site.config';
 ---
 
 <footer id="site-footer">
 	<div id="footer-widgets">
-		<aside id="footer-1" class="sidebar sidebar-sub">
-			<ul class="widget-list">
-				<li class="widget">
-					<h3 class="widget-title">Recent Posts</h3>
-					<ul>
-						{
-							recent.map((p) => (
-								<li>
-									<a href={`/posts/${p.id}/`}>{p.data.title}</a>
-								</li>
-							))
-						}
-					</ul>
-				</li>
-			</ul>
-		</aside>
-		<aside id="footer-2" class="sidebar sidebar-sub">
-			<ul class="widget-list">
-				<li class="widget">
-					<h3 class="widget-title">Archives</h3>
-					<ul>
-						{
-							[...months.values()].map((m) => (
-								<li>
-									<a href={`/archive/${m.year}/${m.month}/`}>
-										{formatDate(m.date, { month: 'long', year: 'numeric' })}
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</li>
-			</ul>
-		</aside>
-		<aside id="footer-3" class="sidebar sidebar-sub">
-			<ul class="widget-list">
-				<li class="widget">
-					<h3 class="widget-title">Tags</h3>
-					<div class="tag-pills">
-						{tags.map((t) => <a href={`/tag/${t.slug}/`}>#{t.name}</a>)}
+		<aside id="footer-1" class="footer-widget">
+			{
+				SOCIAL.length > 0 && (
+					<div id="follow">
+						<p class="social-links">
+							{SOCIAL.map((s) => (
+								<a href={s.href} title={s.label} aria-label={s.label}>
+									<Icon name={s.icon} size={28} />
+								</a>
+							))}
+						</p>
 					</div>
-				</li>
-			</ul>
+				)
+			}
+		</aside>
+		<aside id="footer-2" class="footer-widget">
+			<SearchForm />
 		</aside>
 	</div>
 	<div id="site-info">

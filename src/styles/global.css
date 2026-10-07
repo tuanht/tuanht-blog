@@ -928,12 +928,11 @@ input[type='button']:hover {
 	list-style-type: none;
 }
 
-.sidebar #search-form {
-	margin: 0 0 22px;
-	padding-left: 10px;
+#search-form {
+	margin: 0 3px 0 0;
 }
 
-.sidebar #search-form input {
+#search-form input {
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 100%;
@@ -946,18 +945,10 @@ input[type='button']:hover {
 	line-height: 20px;
 }
 
-.sidebar #search-form input:focus-visible {
+#search-form input:focus-visible {
 	border-color: var(--blue-bright);
 	outline: 2px solid var(--blue-bright);
 	outline-offset: 1px;
-}
-
-.sidebar .widget-categories ul {
-	margin-left: 14px;
-}
-
-.sidebar form {
-	margin-bottom: 22px;
 }
 
 .sidebar h3 {
@@ -977,10 +968,6 @@ input[type='button']:hover {
 	right: 0;
 	float: right;
 	width: 250px;
-}
-
-#sidebar-secondary {
-	clear: right;
 }
 
 #sidebar-primary {
@@ -1003,7 +990,6 @@ input[type='button']:hover {
 	text-transform: uppercase;
 }
 
-/* Follow box */
 #sidebar-primary .widget {
 	margin-bottom: 22px;
 	padding: 20px;
@@ -1012,11 +998,6 @@ input[type='button']:hover {
 	background-image: linear-gradient(to bottom, var(--box-top), var(--bar-bottom));
 	box-shadow: 0 0 3px var(--text);
 	text-align: center;
-}
-
-#follow {
-	margin-bottom: 16px;
-	padding: 8px 8px 4px !important;
 }
 
 #sidebar-primary .widget-title {
@@ -1028,21 +1009,6 @@ input[type='button']:hover {
 #sidebar-primary p {
 	margin-bottom: 6px;
 	color: #fff;
-}
-
-#layout #follow a {
-	display: inline-block;
-	padding: 0 8px;
-	color: #fff;
-}
-
-#layout #follow a:hover {
-	color: var(--coral);
-}
-
-#follow svg {
-	display: block;
-	fill: currentColor;
 }
 
 /* Profile box (Resume page) */
@@ -1083,14 +1049,26 @@ input[type='button']:hover {
 	color: var(--coral);
 }
 
-#profile .profile-social a {
+/* Social icons, shared by the Resume sidebar and the footer */
+#site .social-links a {
 	display: inline-block;
 	padding: 0 8px;
+	color: #fff;
 }
 
-#profile svg {
+#site .social-links a:hover {
+	color: var(--coral);
+}
+
+#site .social-links svg {
 	display: block;
 	fill: currentColor;
+}
+
+/* `#footer-widgets *` would otherwise pin the svg and its <use> child to a fixed colour. */
+#site .social-links svg,
+#site .social-links svg * {
+	color: inherit;
 }
 
 /* =Footer
@@ -1104,20 +1082,25 @@ input[type='button']:hover {
 }
 
 #footer-widgets {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 20px;
 	width: 940px;
 	margin: 0 auto;
-	padding: 33px 0 0;
+	padding: 33px 0 33px;
 	overflow: hidden;
 }
 
-#footer-widgets .sidebar {
-	float: left;
-	width: 300px;
-	margin: 0 20px 0 0;
+#footer-widgets .footer-widget {
+	margin: 0;
+	font-size: 11pt;
+	line-height: 20px;
 }
 
-#footer-widgets #footer-3 {
-	margin: 0;
+#footer-2 {
+	width: 300px;
+	margin-left: auto;
 }
 
 #footer-widgets * {
@@ -1135,27 +1118,17 @@ input[type='button']:hover {
 	list-style: none;
 }
 
-#footer-widgets .tag-pills {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-	margin-bottom: 18px;
+/* Follow icons (hidden on the Resume page, whose sidebar shows them) */
+.has-profile #follow {
+	display: none;
 }
 
-#footer-widgets .tag-pills a {
-	padding: 4px 12px;
-	border-radius: 999px;
-	background: var(--tag-pill);
-	color: var(--tag-pill-text);
-	font-size: 13px;
-	line-height: 1.5;
-	text-decoration: none;
+#follow .widget-title {
+	margin-bottom: 8px;
 }
 
-#footer-widgets .tag-pills a:hover,
-#footer-widgets .tag-pills a:focus-visible {
-	background: var(--blue-bright);
-	color: #fff;
+#follow .social-links {
+	margin: 5px 0 0 -5px;
 }
 
 #footer-widgets a {
@@ -1167,8 +1140,12 @@ input[type='button']:hover {
 	color: var(--coral);
 }
 
-.sidebar-sub h3 {
+.footer-widget h3 {
 	margin-bottom: 12px;
+	font-family: var(--font-display);
+	font-size: 14pt;
+	font-style: normal;
+	line-height: 22px;
 	text-transform: uppercase;
 }
 
@@ -1290,10 +1267,13 @@ input[type='button']:hover {
 		box-sizing: border-box;
 	}
 
-	#footer-widgets .sidebar {
-		float: none;
-		width: auto;
-		margin: 0;
+	#footer-widgets {
+		flex-direction: column;
+	}
+
+	#footer-widgets .footer-widget,
+	#footer-2 {
+		width: 100%;
 	}
 
 	#layout,
@@ -1357,6 +1337,30 @@ input[type='button']:hover {
 	}
 }
 
+/* Tag pills (Archives) */
+#entries .tag-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 18px;
+}
+
+#entries .tag-pills a {
+	padding: 6px 12px;
+	background-color: var(--chip);
+	color: #fff;
+	font-family: var(--font-display);
+	font-size: 14px;
+	line-height: 18px;
+	text-decoration: none;
+}
+
+#layout #entries .tag-pills a:hover,
+#layout #entries .tag-pills a:focus-visible {
+	background-color: var(--blue-bright);
+	color: #fff;
+}
+
 /* =Listing
 -------------------------------------------------------------- */
 
@@ -1364,7 +1368,7 @@ input[type='button']:hover {
 .is-listing #column,
 .is-archive #column {
 	/* Same outer width as the padded container on other pages. */
-	width: 680px;
+	width: 940px;
 	max-width: 100%;
 	padding: 0;
 	border: 0;

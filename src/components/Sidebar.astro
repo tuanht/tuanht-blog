@@ -1,117 +1,60 @@
 ---
 import { Icon } from 'astro-icon/components';
-import SearchForm from './SearchForm.astro';
 import { PROFILE, SOCIAL } from '../site.config';
-import { getPosts, groupByTerm } from '../lib/posts';
-
-interface Props {
-	/** Show only the avatar and personal info. */
-	profile?: boolean;
-}
-
-const { profile = false } = Astro.props;
-const categories = groupByTerm(await getPosts(), 'categories');
 ---
 
-{
-	profile && (
-		<aside id="sidebar-primary" class="sidebar sidebar-main sidebar-profile">
-			<ul class="widget-list sidebar-flush">
-				<li id="profile" class="widget">
-					<img class="avatar" src={PROFILE.avatar} alt={PROFILE.name} width="160" height="160" />
-					<h3 class="widget-title">{PROFILE.name}</h3>
-					{PROFILE.title && <p class="profile-title">{PROFILE.title}</p>}
-					{PROFILE.bio && <p>{PROFILE.bio}</p>}
-					<dl class="profile-info">
-						{PROFILE.location && (
-							<>
-								<dt>Location</dt>
-								<dd>{PROFILE.location}</dd>
-							</>
-						)}
-						{PROFILE.email && (
-							<>
-								<dt>Email</dt>
-								<dd>
-									<a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
-								</dd>
-							</>
-						)}
-						{PROFILE.mobile && (
-							<>
-								<dt>Mobile</dt>
-								<dd>
-									{/^[+\d\s.-]+$/.test(PROFILE.mobile) ? (
-										<a href={`tel:${PROFILE.mobile.replace(/[^+\d]/g, '')}`}>{PROFILE.mobile}</a>
-									) : (
-										PROFILE.mobile
-									)}
-								</dd>
-							</>
-						)}
-						{PROFILE.website && (
-							<>
-								<dt>Website</dt>
-								<dd>
-									<a href={PROFILE.website}>{PROFILE.website.replace(/^https?:\/\//, '')}</a>
-								</dd>
-							</>
-						)}
-					</dl>
-					{SOCIAL.length > 0 && (
-						<p class="profile-social">
-							{SOCIAL.map((s) => (
-								<a href={s.href} title={s.label} aria-label={s.label}>
-									<Icon name={s.icon} size={28} />
-								</a>
-							))}
-						</p>
+	<aside id="sidebar-primary" class="sidebar sidebar-main sidebar-profile">
+		<ul class="widget-list sidebar-flush">
+			<li id="profile" class="widget">
+				<img class="avatar" src={PROFILE.avatar} alt={PROFILE.name} width="160" height="160" />
+				<h3 class="widget-title">{PROFILE.name}</h3>
+				{PROFILE.title && <p class="profile-title">{PROFILE.title}</p>}
+				{PROFILE.bio && <p>{PROFILE.bio}</p>}
+				<dl class="profile-info">
+					{PROFILE.location && (
+						<>
+							<dt>Location</dt>
+							<dd>{PROFILE.location}</dd>
+						</>
 					)}
-				</li>
-			</ul>
-		</aside>
-	)
-}
-
-{
-	!profile && (
-		<>
-<aside id="sidebar-primary" class="sidebar sidebar-main">
-	<ul class="widget-list sidebar-flush">
-		{
-			SOCIAL.length > 0 && (
-				<li id="follow" class="widget">
-					<h3 class="widget-title">Follow</h3>
-					<p>
+					{PROFILE.email && (
+						<>
+							<dt>Email</dt>
+							<dd>
+								<a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+							</dd>
+						</>
+					)}
+					{PROFILE.mobile && (
+						<>
+							<dt>Mobile</dt>
+							<dd>
+								{/^[+\d\s.-]+$/.test(PROFILE.mobile) ? (
+									<a href={`tel:${PROFILE.mobile.replace(/[^+\d]/g, '')}`}>{PROFILE.mobile}</a>
+								) : (
+									PROFILE.mobile
+								)}
+							</dd>
+						</>
+					)}
+					{PROFILE.website && (
+						<>
+							<dt>Website</dt>
+							<dd>
+								<a href={PROFILE.website}>{PROFILE.website.replace(/^https?:\/\//, '')}</a>
+							</dd>
+						</>
+					)}
+				</dl>
+				{SOCIAL.length > 0 && (
+					<p class="social-links">
 						{SOCIAL.map((s) => (
 							<a href={s.href} title={s.label} aria-label={s.label}>
 								<Icon name={s.icon} size={28} />
 							</a>
 						))}
 					</p>
-				</li>
-			)
-		}
-	</ul>
-	<SearchForm />
-</aside>
-
-<aside id="sidebar-secondary" class="sidebar sidebar-main">
-	<ul class="widget-list sidebar-flush">
-		<li class="widget widget-categories">
-			<h3 class="widget-title">Categories</h3>
-			<ul>
-				{
-					categories.map((c) => (
-						<li class="category-item">
-							<a href={`/category/${c.slug}/`}>{c.name}</a>
-						</li>
-					))
-				}
-			</ul>
-		</li>
-	</ul>
-</aside>
-		</>
-	)
-}
+				)}
+			</li>
+		</ul>
+	</aside>
