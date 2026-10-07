@@ -1,0 +1,19 @@
+---
+import type { Post } from '../lib/posts';
+import { formatDate } from '../lib/posts';
+
+interface Props {
+	post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, date, categories } = post.data;
+---
+
+<a class="post-row" href={`/posts/${post.id}/`} rel="bookmark">
+	<span class="post-row-title">{title}</span>
+	<span class="post-row-meta">
+		Published: {formatDate(date)}{categories.length > 0 && ` | ${categories.join(', ')}`}
+	</span>
+	<span class="post-row-excerpt">{description}</span>
+</a>

@@ -7,7 +7,7 @@ tags: [astro, web]
 ---
 
 This blog now runs on [Astro](https://astro.build). The look comes from *Tuamatic*,
-my old child theme of Thematic.
+my old WordPress theme.
 
 ## Why move
 

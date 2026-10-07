@@ -12,54 +12,56 @@ const { title, description, date, categories, tags } = post.data;
 const href = `/posts/${post.id}/`;
 ---
 
-<article id={`post-${post.id}`} class="hentry post">
+<article id={`post-${post.id}`} class="hentry post post-featured">
 	<h2 class="entry-title">
 		<a href={href} title={`Permalink to ${title}`} rel="bookmark">{title}</a>
 	</h2>
-	<div class="entry-meta">
-		<span class="meta-prep meta-prep-author">By </span>
+	<div class="post-meta">
+		<span class="prep">By </span>
 		<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
-		<span class="meta-sep meta-sep-entry-date"> | </span>
-		<span class="meta-prep meta-prep-entry-date">Published: </span>
-		<span class="entry-date">
+		<span class="sep"> | </span>
+		<span class="prep">Published: </span>
+		<span class="post-date">
 			<time datetime={date.toISOString()}>{formatDate(date)}</time>
 		</span>
 	</div>
 	<div class="entry-content">
 		<p>{description}</p>
-		<p><a class="more-link" href={href}>Read more <span class="meta-nav">&raquo;</span></a></p>
 	</div>
-	<div class="entry-utility">
-		{
-			categories.length > 0 && (
-				<span class="cat-links">
-					Posted in{' '}
-					{categories.map((c, i) => (
-						<>
-							{i > 0 && ', '}
-							<a href={`/category/${slugify(c)}/`}>{c}</a>
-						</>
-					))}
-				</span>
-			)
-		}
-		{
-			categories.length > 0 && tags.length > 0 && (
-				<span class="meta-sep meta-sep-tag-links">|</span>
-			)
-		}
-		{
-			tags.length > 0 && (
-				<span class="tag-links">
-					Tagged{' '}
-					{tags.map((t, i) => (
-						<>
-							{i > 0 && ', '}
-							<a href={`/tag/${slugify(t)}/`}>{t}</a>
-						</>
-					))}
-				</span>
-			)
-		}
+	<div class="post-utility">
+		<span class="post-terms">
+			{
+				categories.length > 0 && (
+					<span class="post-categories">
+						Posted in{' '}
+						{categories.map((c, i) => (
+							<>
+								{i > 0 && ', '}
+								<a href={`/category/${slugify(c)}/`}>{c}</a>
+							</>
+						))}
+					</span>
+				)
+			}
+			{
+				categories.length > 0 && tags.length > 0 && (
+					<span class="sep">&middot;</span>
+				)
+			}
+			{
+				tags.length > 0 && (
+					<span class="post-tags">
+						Tagged{' '}
+						{tags.map((t, i) => (
+							<>
+								{i > 0 && ', '}
+								<a href={`/tag/${slugify(t)}/`}>{t}</a>
+							</>
+						))}
+					</span>
+				)
+			}
+		</span>
+		<a class="more-link" href={href}>Continue reading &raquo;</a>
 	</div>
 </article>

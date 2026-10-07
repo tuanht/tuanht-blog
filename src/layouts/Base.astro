@@ -58,11 +58,11 @@ const ogImage = new URL(SITE.ogImage, Astro.site);
 		<Font cssVariable="--font-oswald" preload />
 	</head>
 	<body class:list={[bodyClass, { fullwidth, 'has-profile': profile }]}>
-		<div id="wrapper" class="hfeed">
+		<div id="site" class="hfeed">
 			<Header />
-			<div id="main">
-				<div id="container">
-					<main id="content">
+			<div id="layout">
+				<div id="column">
+					<main id="entries">
 						<slot />
 					</main>
 				</div>
@@ -72,3 +72,16 @@ const ogImage = new URL(SITE.ogImage, Astro.site);
 		</div>
 	</body>
 </html>
+<script>
+	document.addEventListener('click', async (e) => {
+		const button = (e.target as Element).closest<HTMLButtonElement>('.code-copy');
+		if (!button) return;
+		const code = button.closest('.code-block')?.querySelector('code')?.textContent ?? '';
+		try {
+			await navigator.clipboard.writeText(code);
+			button.textContent = 'copied';
+			setTimeout(() => (button.textContent = 'copy'), 1500);
+		} catch {}
+	});
+</script>
+

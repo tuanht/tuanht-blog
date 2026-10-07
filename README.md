@@ -1,13 +1,13 @@
 # tuanht-blog
 
-Astro port of the *Tuamatic* WordPress theme (child of *Thematic*).
+Astro blog using the *Tuamatic* theme.
 
 ## Layout
 
 - `src/site.config.ts`: title, author, menu, social icons, posts per page.
 - `src/content/posts/*.md`: posts (`title`, `description`, `date`, `categories`, `tags`, `draft`).
 - `src/content/pages/*.md`: static pages, served at `/<name>/`.
-- `src/styles/global.css`: all theme CSS (Thematic base merged with Tuamatic).
+- `src/styles/global.css`: all theme CSS (Tuamatic).
 - `src/layouts/Base.astro`, `src/components/*`: header, menu, sidebar, footer, post list, pagination.
 
 ## Commands

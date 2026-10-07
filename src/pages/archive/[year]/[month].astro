@@ -20,7 +20,7 @@ const { posts } = Astro.props;
 const label = formatDate(posts[0].data.date, { month: 'long', year: 'numeric' });
 ---
 
-<Base title={`Archives: ${label}`} bodyClass="archive date">
-	<h1 class="page-title">Monthly Archives: <span>{label}</span></h1>
-	<PostList posts={posts} />
+<Base title={`Archives: ${label}`} bodyClass="is-archive">
+	<h1 class="listing-title">Monthly Archives: <span>{label}</span></h1>
+	<PostList posts={posts} heading="Posts" />
 </Base>

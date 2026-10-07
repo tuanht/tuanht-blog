@@ -3,18 +3,18 @@ import { SITE, MENU, type MenuItem } from '../site.config';
 
 const path = Astro.url.pathname;
 const isCurrent = (item: MenuItem): boolean =>
-	(item.href !== '/' && path.startsWith(item.href)) || !!item.children?.some(isCurrent);
+	(item.href === '/' ? path === '/' || path.startsWith('/page/') : path.startsWith(item.href)) || !!item.children?.some(isCurrent);
 ---
 
-<header id="header">
-	<div id="branding">
-		<div id="blog-title">
+<header id="site-header">
+	<div id="site-brand">
+		<div id="site-title">
 			<a href="/" title={SITE.title} rel="home">{SITE.title}</a>
 		</div>
 	</div>
-	<nav id="access" aria-label="Primary">
-		<div class="menu">
-			<ul class="sf-menu">
+	<nav id="site-nav" aria-label="Primary">
+		<div class="nav-list">
+			<ul class="nav-menu">
 				{
 					MENU.map((item) => (
 						<li class:list={['menu-item', { 'current-menu-item': isCurrent(item) }]}>
@@ -22,9 +22,9 @@ const isCurrent = (item: MenuItem): boolean =>
 								{item.label}
 							</a>
 							{item.children && (
-								<ul class="sub-menu">
+								<ul class="nav-sub">
 									{item.children.map((child) => (
-										<li class="menu-item">
+										<li class="nav-item">
 											<a href={child.href}>{child.label}</a>
 										</li>
 									))}

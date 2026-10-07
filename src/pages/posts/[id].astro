@@ -6,37 +6,48 @@ import { getPosts, formatDate, slugify } from '../../lib/posts';
 
 export async function getStaticPaths() {
 	const posts = await getPosts();
-	return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+	return posts.map((post, i) => ({
+		params: { id: post.id },
+		// Posts are sorted newest first, so the older post follows in the list.
+		props: { post, newer: posts[i - 1], older: posts[i + 1] },
+	}));
 }
 
-const { post } = Astro.props;
+const { post, newer, older } = Astro.props;
 const { title, description, date, categories, tags } = post.data;
 const { Content } = await render(post);
+const category = categories[0];
 const permalink = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
-<Base title={title} description={description} bodyClass="single single-post">
+<Base title={title} description={description} bodyClass="is-post" fullwidth>
+	<div class="post-column">
+	<nav class="breadcrumb" aria-label="Breadcrumb">
+		<a href="/">Home</a> &raquo;{' '}
+		{category && <><a href={`/category/${slugify(category)}/`}>{category}</a> &raquo;{' '}</>}
+		<span aria-current="page">{title}</span>
+	</nav>
 	<article id={`post-${post.id}`} class="hentry post">
 		<h1 class="entry-title">{title}</h1>
-		<div class="entry-meta">
-			<span class="meta-prep meta-prep-author">By </span>
+		<div class="post-meta">
+			<span class="prep">By </span>
 			<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
-			<span class="meta-sep meta-sep-entry-date"> | </span>
-			<span class="meta-prep meta-prep-entry-date">Published: </span>
-			<span class="entry-date">
+			<span class="sep"> | </span>
+			<span class="prep">Published: </span>
+			<span class="post-date">
 				<time datetime={date.toISOString()}>{formatDate(date)}</time>
 			</span>
 		</div>
 		<div class="entry-content">
 			<Content />
 		</div>
-		<div class="entry-utility">
+		<div class="post-utility">
 			This entry was posted{' '}
 			{
 				categories.length > 0 && (
 					<>
 						in{' '}
-						<span class="cat-links">
+						<span class="post-categories">
 							{categories.map((c, i) => (
 								<>
 									{i > 0 && ', '}
@@ -51,7 +62,7 @@ const permalink = new URL(Astro.url.pathname, Astro.site).href;
 				tags.length > 0 && (
 					<>
 						{categories.length > 0 && ' and '}tagged{' '}
-						<span class="tag-links">
+						<span class="post-tags">
 							{tags.map((t, i) => (
 								<>
 									{i > 0 && ', '}
@@ -64,4 +75,33 @@ const permalink = new URL(Astro.url.pathname, Astro.site).href;
 			}. Bookmark the <a href={permalink} title={`Permalink to ${title}`}>permalink</a>.
 		</div>
 	</article>
+	<nav class="post-nav" aria-label="Post navigation">
+		{
+			older ? (
+				<a class="post-nav-card prev" rel="prev" href={`/posts/${older.id}/`}>
+					<span class="post-nav-label">&laquo; Previous</span>
+					<span class="post-nav-title">{older.data.title}</span>
+				</a>
+			) : (
+				<div class="post-nav-card prev disabled" aria-disabled="true">
+					<span class="post-nav-label">&laquo; Previous</span>
+					<span class="post-nav-title">This is the oldest post</span>
+				</div>
+			)
+		}
+		{
+			newer ? (
+				<a class="post-nav-card next" rel="next" href={`/posts/${newer.id}/`}>
+					<span class="post-nav-label">Next &raquo;</span>
+					<span class="post-nav-title">{newer.data.title}</span>
+				</a>
+			) : (
+				<div class="post-nav-card next disabled" aria-disabled="true">
+					<span class="post-nav-label">Next &raquo;</span>
+					<span class="post-nav-title">This is the latest post</span>
+				</div>
+			)
+		}
+	</nav>
+	</div>
 </Base>
