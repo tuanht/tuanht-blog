@@ -1119,14 +1119,25 @@ input[type='button']:hover {
 	margin: 5px 0 0 3px;
 }
 
-#follow a {
+#footer-widgets #follow a {
 	display: inline-block;
 	padding: 0 8px 0 0;
+	color: #fff;
+}
+
+#footer-widgets #follow a:hover {
+	color: var(--coral);
 }
 
 #follow svg {
 	display: block;
 	fill: currentColor;
+}
+
+/* Beats `#footer-widgets *`, which also hits the svg and its <use> child. */
+#footer-widgets #follow svg,
+#footer-widgets #follow svg * {
+	color: inherit;
 }
 
 #footer-widgets a {
