@@ -1,6 +1,6 @@
 export const SITE = {
 	title: '/blog/tuanht',
-	description: 'Notes on programming, Linux and books by Tuan Ha.',
+	description: 'Notes on programming, Linux and AI.',
 	author: 'Tuan Ha',
 	repo: 'https://github.com/tuanht/tuanht-blog',
 	lang: 'en',
@@ -28,8 +28,8 @@ export const SOCIAL = [
 	{ label: 'RSS', href: '/rss.xml', icon: 'simple-icons:rss' },
 	{ label: 'GitHub', href: 'https://github.com/tuanht', icon: 'simple-icons:github' },
 	{ label: 'X', href: '', icon: 'simple-icons:x' },
-	{ label: 'Facebook', href: '', icon: 'simple-icons:facebook' },
-	{ label: 'LinkedIn', href: '', icon: 'simple-icons:linkedin' },
+	{ label: 'Facebook', href: 'https://www.facebook.com/tuanht', icon: 'simple-icons:facebook' },
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/tuanht', icon: 'simple-icons:linkedin' },
 	{ label: 'YouTube', href: '', icon: 'simple-icons:youtube' },
 ].filter((s) => s.href);
 
@@ -38,7 +38,7 @@ export const PROFILE = {
 	name: 'Tuan Ha',
 	title: 'Software Engineer',
 	avatar: '/img/avatar.webp',
-	bio: 'I write about programming, Linux and the books I read.',
+	bio: 'I write about programming, Linux and AI.',
 	location: 'HCM, VN',
 	email: 'tuanht.unix@gmail.com',
 	mobile: '090xxxxxxx',
