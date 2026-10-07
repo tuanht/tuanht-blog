@@ -13,12 +13,12 @@ for (const post of posts) {
 }
 ---
 
-<footer id="footer">
-	<div id="subsidiary">
-		<aside id="first" class="aside sub-aside">
-			<ul class="xoxo">
-				<li class="widgetcontainer">
-					<h3 class="widgettitle">Recent Posts</h3>
+<footer id="site-footer">
+	<div id="footer-widgets">
+		<aside id="footer-1" class="sidebar sidebar-sub">
+			<ul class="widget-list">
+				<li class="widget">
+					<h3 class="widget-title">Recent Posts</h3>
 					<ul>
 						{
 							recent.map((p) => (
@@ -31,10 +31,10 @@ for (const post of posts) {
 				</li>
 			</ul>
 		</aside>
-		<aside id="second" class="aside sub-aside">
-			<ul class="xoxo">
-				<li class="widgetcontainer">
-					<h3 class="widgettitle">Archives</h3>
+		<aside id="footer-2" class="sidebar sidebar-sub">
+			<ul class="widget-list">
+				<li class="widget">
+					<h3 class="widget-title">Archives</h3>
 					<ul>
 						{
 							[...months.values()].map((m) => (
@@ -49,10 +49,10 @@ for (const post of posts) {
 				</li>
 			</ul>
 		</aside>
-		<aside id="third" class="aside sub-aside">
-			<ul class="xoxo">
-				<li class="widgetcontainer">
-					<h3 class="widgettitle">Tags</h3>
+		<aside id="footer-3" class="sidebar sidebar-sub">
+			<ul class="widget-list">
+				<li class="widget">
+					<h3 class="widget-title">Tags</h3>
 					<div class="tag-pills">
 						{tags.map((t) => <a href={`/tag/${t.slug}/`}>#{t.name}</a>)}
 					</div>
@@ -60,7 +60,7 @@ for (const post of posts) {
 			</ul>
 		</aside>
 	</div>
-	<div id="siteinfo">
+	<div id="site-info">
 		<p class="copyright">
 			&copy; {new Date().getFullYear()} <a href="/">{SITE.author}</a>. Built with{' '}
 			<a href="https://astro.build">Astro</a>.

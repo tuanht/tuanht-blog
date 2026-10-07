@@ -20,7 +20,7 @@ const category = categories[0];
 const permalink = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
-<Base title={title} description={description} bodyClass="single single-post" fullwidth>
+<Base title={title} description={description} bodyClass="is-post" fullwidth>
 	<div class="post-column">
 	<nav class="breadcrumb" aria-label="Breadcrumb">
 		<a href="/">Home</a> &raquo;{' '}
@@ -29,25 +29,25 @@ const permalink = new URL(Astro.url.pathname, Astro.site).href;
 	</nav>
 	<article id={`post-${post.id}`} class="hentry post">
 		<h1 class="entry-title">{title}</h1>
-		<div class="entry-meta">
-			<span class="meta-prep meta-prep-author">By </span>
+		<div class="post-meta">
+			<span class="prep">By </span>
 			<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
-			<span class="meta-sep meta-sep-entry-date"> | </span>
-			<span class="meta-prep meta-prep-entry-date">Published: </span>
-			<span class="entry-date">
+			<span class="sep"> | </span>
+			<span class="prep">Published: </span>
+			<span class="post-date">
 				<time datetime={date.toISOString()}>{formatDate(date)}</time>
 			</span>
 		</div>
 		<div class="entry-content">
 			<Content />
 		</div>
-		<div class="entry-utility">
+		<div class="post-utility">
 			This entry was posted{' '}
 			{
 				categories.length > 0 && (
 					<>
 						in{' '}
-						<span class="cat-links">
+						<span class="post-categories">
 							{categories.map((c, i) => (
 								<>
 									{i > 0 && ', '}
@@ -62,7 +62,7 @@ const permalink = new URL(Astro.url.pathname, Astro.site).href;
 				tags.length > 0 && (
 					<>
 						{categories.length > 0 && ' and '}tagged{' '}
-						<span class="tag-links">
+						<span class="post-tags">
 							{tags.map((t, i) => (
 								<>
 									{i > 0 && ', '}

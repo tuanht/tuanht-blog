@@ -19,8 +19,8 @@ const rows = Array.from({ length: Math.ceil(categories.length / 2) }, (_, i) =>
 );
 ---
 
-<Base title="Archives" bodyClass="page page-template-archives" fullwidth>
-	<article class="hentry page">
+<Base title="Archives" bodyClass="is-page" fullwidth>
+	<article class="hentry">
 		<h1 class="entry-title">Archives</h1>
 		<div class="entry-content">
 			<h2>By Year &amp; Month</h2>
@@ -34,7 +34,7 @@ const rows = Array.from({ length: Math.ceil(categories.length / 2) }, (_, i) =>
 								return counts.has(`${year}/${month}`) ? (
 									<a href={`/archive/${year}/${month}/`}>{name}</a>
 								) : (
-									<span class="emptymonth">{name}</span>
+									<span class="empty-month">{name}</span>
 								);
 							})}
 						</li>

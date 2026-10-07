@@ -6,6 +6,6 @@ import { getPosts, pageCount, paginate } from '../lib/posts';
 const posts = await getPosts();
 ---
 
-<Base bodyClass="home blog">
+<Base bodyClass="is-listing">
 	<PostList posts={paginate(posts, 1)} featured pagination={{ current: 1, total: pageCount(posts.length) }} />
 </Base>

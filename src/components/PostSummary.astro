@@ -16,23 +16,23 @@ const href = `/posts/${post.id}/`;
 	<h2 class="entry-title">
 		<a href={href} title={`Permalink to ${title}`} rel="bookmark">{title}</a>
 	</h2>
-	<div class="entry-meta">
-		<span class="meta-prep meta-prep-author">By </span>
+	<div class="post-meta">
+		<span class="prep">By </span>
 		<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
-		<span class="meta-sep meta-sep-entry-date"> | </span>
-		<span class="meta-prep meta-prep-entry-date">Published: </span>
-		<span class="entry-date">
+		<span class="sep"> | </span>
+		<span class="prep">Published: </span>
+		<span class="post-date">
 			<time datetime={date.toISOString()}>{formatDate(date)}</time>
 		</span>
 	</div>
 	<div class="entry-content">
 		<p>{description}</p>
 	</div>
-	<div class="entry-utility">
-		<span class="entry-terms">
+	<div class="post-utility">
+		<span class="post-terms">
 			{
 				categories.length > 0 && (
-					<span class="cat-links">
+					<span class="post-categories">
 						Posted in{' '}
 						{categories.map((c, i) => (
 							<>
@@ -45,12 +45,12 @@ const href = `/posts/${post.id}/`;
 			}
 			{
 				categories.length > 0 && tags.length > 0 && (
-					<span class="meta-sep meta-sep-tag-links">&middot;</span>
+					<span class="sep">&middot;</span>
 				)
 			}
 			{
 				tags.length > 0 && (
-					<span class="tag-links">
+					<span class="post-tags">
 						Tagged{' '}
 						{tags.map((t, i) => (
 							<>

@@ -15,28 +15,28 @@ const numbers = Array.from({ length: last - first + 1 }, (_, i) => first + i);
 
 {
 	total > 1 && (
-		<nav id="nav-below" class="navigation wp-pagenavi" aria-label="Pagination">
-			<span class="pages">
+		<nav class="pagination" aria-label="Pagination">
+			<span class="page-count">
 				Page {current} of {total}
 			</span>
 			{first > 1 && (
 				<>
 					<a class="first" href={pageHref(1)}>&laquo; First</a>
-					{first > 2 && <span class="extend">...</span>}
+					{first > 2 && <span class="gap">...</span>}
 				</>
 			)}
-			{current > 1 && <a class="previouspostslink" rel="prev" href={pageHref(current - 1)}>&laquo;</a>}
+			{current > 1 && <a class="prev" rel="prev" href={pageHref(current - 1)}>&laquo;</a>}
 			{numbers.map((n) =>
 				n === current ? (
 					<span class="current" aria-current="page">{n}</span>
 				) : (
-					<a class="page" href={pageHref(n)}>{n}</a>
+					<a class="page-num" href={pageHref(n)}>{n}</a>
 				),
 			)}
-			{current < total && <a class="nextpostslink" rel="next" href={pageHref(current + 1)}>&raquo;</a>}
+			{current < total && <a class="next" rel="next" href={pageHref(current + 1)}>&raquo;</a>}
 			{last < total && (
 				<>
-					{last < total - 1 && <span class="extend">...</span>}
+					{last < total - 1 && <span class="gap">...</span>}
 					<a class="last" href={pageHref(total)}>Last &raquo;</a>
 				</>
 			)}

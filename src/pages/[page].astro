@@ -11,8 +11,8 @@ const { page } = Astro.props;
 const { Content } = await render(page);
 ---
 
-<Base title={page.data.title} description={page.data.description} bodyClass="page">
-	<article class="hentry page">
+<Base title={page.data.title} description={page.data.description} bodyClass="is-page">
+	<article class="hentry">
 		<h1 class="entry-title">{page.data.title}</h1>
 		<div class="entry-content">
 			<Content />
