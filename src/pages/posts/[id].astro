@@ -14,13 +14,13 @@ export async function getStaticPaths() {
 }
 
 const { post, newer, older } = Astro.props;
-const { title, description, date, categories, tags } = post.data;
+const { title, description, date, categories, tags, image } = post.data;
 const { Content } = await render(post);
 const category = categories[0];
 const permalink = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
-<Base title={title} description={description} image={`/og/${post.id}.png`} bodyClass="is-post" fullwidth>
+<Base title={title} description={description} image={image ?? `/og/${post.id}.png`} bodyClass="is-post" fullwidth>
 	<div class="post-column">
 	<nav class="breadcrumb" aria-label="Breadcrumb">
 		<a href="/">Home</a> &raquo;{' '}

@@ -11,6 +11,8 @@ const posts = defineCollection({
 		categories: z.array(z.string()).default([]),
 		tags: z.array(z.string()).default([]),
 		draft: z.boolean().default(false),
+		/** Manual link-preview image path under `public/`; overrides the generated card. */
+		image: z.string().startsWith('/').optional(),
 	}),
 });
 
