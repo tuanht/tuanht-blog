@@ -953,18 +953,7 @@ input[type='button']:hover {
 }
 
 .sidebar .widget-categories ul {
-	margin-left: 0;
-	list-style: none;
-}
-
-.sidebar .widget-categories ul li {
-	list-style: none;
-}
-
-.widget-categories li::before {
-	content: '\25B8';
-	margin-right: 6px;
-	color: var(--muted);
+	margin-left: 14px;
 }
 
 .sidebar form {
