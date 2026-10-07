@@ -20,6 +20,8 @@ interface Props {
 const { title, description = SITE.description, bodyClass = '', fullwidth = false, profile = false } = Astro.props;
 const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// Link previews need an absolute image URL.
+const ogImage = new URL(SITE.ogImage, Astro.site);
 ---
 
 <!doctype html>
@@ -30,6 +32,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={SITE.title} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta name="twitter:card" content="summary_large_image" />
 		<script is:inline>
 			// Runs before first paint to avoid a flash of the wrong theme.
 			(() => {

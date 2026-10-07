@@ -4,6 +4,8 @@ export const SITE = {
 	author: 'Tuan Ha',
 	repo: 'https://github.com/tuanht/tuanht-blog',
 	lang: 'en',
+	/** Default link-preview image, served from `public/`. */
+	ogImage: '/img/og-image.png',
 	postsPerPage: 5,
 	footerPostCount: 5,
 } as const;
