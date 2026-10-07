@@ -14,12 +14,13 @@ const counts = new Set(
 const years = [...new Set(posts.map((p) => monthKey(p.data.date).year))];
 
 const categories = groupByTerm(posts, 'categories');
+const tags = groupByTerm(posts, 'tags');
 const rows = Array.from({ length: Math.ceil(categories.length / 2) }, (_, i) =>
 	categories.slice(i * 2, i * 2 + 2),
 );
 ---
 
-<Base title="Archives" image="/og/page/archives.png" bodyClass="is-page" fullwidth>
+<Base title="Archives" image="/og/page/archives.png" bodyClass="is-page">
 	<article class="hentry">
 		<h1 class="entry-title">Archives</h1>
 		<div class="entry-content">
@@ -63,6 +64,11 @@ const rows = Array.from({ length: Math.ceil(categories.length / 2) }, (_, i) =>
 					</div>
 				))
 			}
+
+			<h2>By Tag</h2>
+			<div class="tag-pills">
+				{tags.map((t) => <a href={`/tag/${t.slug}/`}>#{t.name}</a>)}
+			</div>
 		</div>
 	</article>
 </Base>
