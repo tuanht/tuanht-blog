@@ -16,7 +16,7 @@ const categories = groupByTerm(await getPosts(), 'categories');
 {
 	profile && (
 		<aside id="sidebar-primary" class="sidebar sidebar-main sidebar-profile">
-			<ul class="widget-list">
+			<ul class="widget-list sidebar-flush">
 				<li id="profile" class="widget">
 					<img class="avatar" src={PROFILE.avatar} alt={PROFILE.name} width="160" height="160" />
 					<h3 class="widget-title">{PROFILE.name}</h3>
@@ -77,7 +77,7 @@ const categories = groupByTerm(await getPosts(), 'categories');
 	!profile && (
 		<>
 <aside id="sidebar-primary" class="sidebar sidebar-main">
-	<ul class="widget-list">
+	<ul class="widget-list sidebar-flush">
 		{
 			SOCIAL.length > 0 && (
 				<li id="follow" class="widget">
@@ -97,7 +97,7 @@ const categories = groupByTerm(await getPosts(), 'categories');
 </aside>
 
 <aside id="sidebar-secondary" class="sidebar sidebar-main">
-	<ul class="widget-list">
+	<ul class="widget-list sidebar-flush">
 		<li class="widget widget-categories">
 			<h3 class="widget-title">Categories</h3>
 			<ul>

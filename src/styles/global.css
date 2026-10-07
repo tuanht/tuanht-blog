@@ -1335,6 +1335,12 @@ input[type='button']:hover {
 		max-width: 100%;
 	}
 
+	/* !important: beats the ID/element sidebar indents without a specificity race. */
+	.sidebar-flush {
+		margin-left: 0 !important;
+		padding-left: 0 !important;
+	}
+
 	/* Profile box goes above the page content. */
 	.has-profile #layout {
 		display: flex;
@@ -1349,20 +1355,6 @@ input[type='button']:hover {
 	.entry-title {
 		font-size: 18pt;
 		line-height: 30px;
-	}
-
-	.post-featured {
-		padding: 20px 18px;
-	}
-
-	.post-featured .entry-title {
-		font-size: 26px;
-		line-height: 1.25;
-	}
-
-	.is-post .entry-title {
-		font-size: 30px;
-		line-height: 1.2;
 	}
 
 	#site-info {
@@ -1384,6 +1376,7 @@ input[type='button']:hover {
 .is-archive #column {
 	/* Same outer width as the padded container on other pages. */
 	width: 680px;
+	max-width: 100%;
 	padding: 0;
 	border: 0;
 	background: none;
@@ -1584,5 +1577,22 @@ input[type='button']:hover {
 
 	.theme-toggle {
 		padding: 0 8px;
+	}
+}
+
+/* Must come after the base rules above: equal specificity, so source order decides. */
+@media (max-width: 1010px) {
+	.post-featured {
+		padding: 20px 18px;
+	}
+
+	.post-featured .entry-title {
+		font-size: 26px;
+		line-height: 1.25;
+	}
+
+	.is-post .entry-title {
+		font-size: 30px;
+		line-height: 1.2;
 	}
 }
