@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PostList from '../../components/PostList.astro';
-import Pagination from '../../components/Pagination.astro';
 import { getPosts, pageCount, paginate } from '../../lib/posts';
 
 export async function getStaticPaths() {
@@ -17,6 +16,5 @@ const { posts, page, total } = Astro.props;
 ---
 
 <Base title={`Page ${page}`} bodyClass="home blog paged">
-	<PostList posts={posts} />
-	<Pagination current={page} total={total} />
+	<PostList posts={posts} pagination={{ current: page, total }} />
 </Base>

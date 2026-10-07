@@ -16,8 +16,9 @@ export interface MenuItem {
 	children?: MenuItem[];
 }
 
-/** Primary menu and sidebar "Pages" widget. Nested `children` render as a dropdown. */
+/** Primary menu. Nested `children` render as a dropdown. */
 export const MENU: MenuItem[] = [
+	{ label: 'Home', href: '/' },
 	{ label: 'Resume', href: '/resume/' },
 	{ label: 'Archives', href: '/archives/' },
 	{ label: 'About', href: '/about/' },

@@ -3,7 +3,7 @@ import { SITE, MENU, type MenuItem } from '../site.config';
 
 const path = Astro.url.pathname;
 const isCurrent = (item: MenuItem): boolean =>
-	(item.href !== '/' && path.startsWith(item.href)) || !!item.children?.some(isCurrent);
+	(item.href === '/' ? path === '/' || path.startsWith('/page/') : path.startsWith(item.href)) || !!item.children?.some(isCurrent);
 ---
 
 <header id="header">

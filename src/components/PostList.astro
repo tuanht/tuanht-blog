@@ -1,12 +1,35 @@
 ---
 import PostSummary from './PostSummary.astro';
+import PostRow from './PostRow.astro';
+import Pagination from './Pagination.astro';
 import type { Post } from '../lib/posts';
 
 interface Props {
 	posts: Post[];
+	/** Show the first post in full (page 1 of the home listing). */
+	featured?: boolean;
+	heading?: string;
+	/** Adds the box footer with pagination and the archive link. */
+	pagination?: { current: number; total: number };
 }
 
-const { posts } = Astro.props;
+const { posts, featured = false, heading = 'Earlier posts', pagination } = Astro.props;
+const lead = featured ? posts[0] : undefined;
+const rows = featured ? posts.slice(1) : posts;
 ---
 
-{posts.map((post) => <PostSummary post={post} />)}
+{lead && <PostSummary post={lead} />}
+{
+	(rows.length > 0 || pagination) && (
+		<section class="post-box">
+			<h2 class="post-box-title">{heading}</h2>
+			{rows.map((post) => <PostRow post={post} />)}
+			{pagination && (
+				<div class="post-box-footer">
+					<Pagination current={pagination.current} total={pagination.total} />
+					<a class="archive-link" href="/archives/">Browse the full archive &rarr;</a>
+				</div>
+			)}
+		</section>
+	)
+}

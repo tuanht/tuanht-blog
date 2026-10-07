@@ -13,5 +13,5 @@ const { name, posts } = Astro.props;
 
 <Base title={`Tag: ${name}`} bodyClass="archive tag">
 	<h1 class="page-title">Tag Archives: <span>{name}</span></h1>
-	<PostList posts={posts} />
+	<PostList posts={posts} heading="Posts" />
 </Base>

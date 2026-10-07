@@ -12,7 +12,7 @@ const { title, description, date, categories, tags } = post.data;
 const href = `/posts/${post.id}/`;
 ---
 
-<article id={`post-${post.id}`} class="hentry post">
+<article id={`post-${post.id}`} class="hentry post post-featured">
 	<h2 class="entry-title">
 		<a href={href} title={`Permalink to ${title}`} rel="bookmark">{title}</a>
 	</h2>
@@ -27,39 +27,41 @@ const href = `/posts/${post.id}/`;
 	</div>
 	<div class="entry-content">
 		<p>{description}</p>
-		<p><a class="more-link" href={href}>Read more <span class="meta-nav">&raquo;</span></a></p>
 	</div>
 	<div class="entry-utility">
-		{
-			categories.length > 0 && (
-				<span class="cat-links">
-					Posted in{' '}
-					{categories.map((c, i) => (
-						<>
-							{i > 0 && ', '}
-							<a href={`/category/${slugify(c)}/`}>{c}</a>
-						</>
-					))}
-				</span>
-			)
-		}
-		{
-			categories.length > 0 && tags.length > 0 && (
-				<span class="meta-sep meta-sep-tag-links">|</span>
-			)
-		}
-		{
-			tags.length > 0 && (
-				<span class="tag-links">
-					Tagged{' '}
-					{tags.map((t, i) => (
-						<>
-							{i > 0 && ', '}
-							<a href={`/tag/${slugify(t)}/`}>{t}</a>
-						</>
-					))}
-				</span>
-			)
-		}
+		<span class="entry-terms">
+			{
+				categories.length > 0 && (
+					<span class="cat-links">
+						Posted in{' '}
+						{categories.map((c, i) => (
+							<>
+								{i > 0 && ', '}
+								<a href={`/category/${slugify(c)}/`}>{c}</a>
+							</>
+						))}
+					</span>
+				)
+			}
+			{
+				categories.length > 0 && tags.length > 0 && (
+					<span class="meta-sep meta-sep-tag-links">&middot;</span>
+				)
+			}
+			{
+				tags.length > 0 && (
+					<span class="tag-links">
+						Tagged{' '}
+						{tags.map((t, i) => (
+							<>
+								{i > 0 && ', '}
+								<a href={`/tag/${slugify(t)}/`}>{t}</a>
+							</>
+						))}
+					</span>
+				)
+			}
+		</span>
+		<a class="more-link" href={href}>Continue reading &raquo;</a>
 	</div>
 </article>

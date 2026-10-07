@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import SearchForm from './SearchForm.astro';
-import { MENU, PROFILE, SOCIAL } from '../site.config';
+import { PROFILE, SOCIAL } from '../site.config';
 import { getPosts, groupByTerm } from '../lib/posts';
 
 interface Props {
@@ -82,7 +82,6 @@ const categories = groupByTerm(await getPosts(), 'categories');
 			SOCIAL.length > 0 && (
 				<li id="follow" class="widgetcontainer">
 					<h3 class="widgettitle">Follow</h3>
-					<p>Subscribe to new posts or find me elsewhere.</p>
 					<p>
 						{SOCIAL.map((s) => (
 							<a href={s.href} title={s.label} aria-label={s.label}>
@@ -94,34 +93,11 @@ const categories = groupByTerm(await getPosts(), 'categories');
 			)
 		}
 	</ul>
+	<SearchForm />
 </aside>
 
 <aside id="secondary" class="aside main-aside">
 	<ul class="xoxo">
-		<li class="widgetcontainer widget_search">
-			<SearchForm />
-		</li>
-		<li class="widgetcontainer widget_pages">
-			<h3 class="widgettitle">Pages</h3>
-			<ul>
-				{
-					MENU.map((item) => (
-						<li>
-							<a href={item.href}>{item.label}</a>
-							{item.children && (
-								<ul class="children">
-									{item.children.map((child) => (
-										<li>
-											<a href={child.href}>{child.label}</a>
-										</li>
-									))}
-								</ul>
-							)}
-						</li>
-					))
-				}
-			</ul>
-		</li>
 		<li class="widgetcontainer widget_categories">
 			<h3 class="widgettitle">Categories</h3>
 			<ul>
