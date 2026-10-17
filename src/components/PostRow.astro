@@ -1,19 +1,20 @@
 ---
 import type { Post } from '../lib/posts';
-import { formatDate } from '../lib/posts';
 
 interface Props {
-	post: Post;
+  post: Post;
 }
 
 const { post } = Astro.props;
-const { title, description, date, categories } = post.data;
 ---
 
-<a class="post-row" href={`/posts/${post.id}/`} rel="bookmark">
-	<span class="post-row-title">{title}</span>
-	<span class="post-row-meta">
-		Published: {formatDate(date)}{categories.length > 0 && ` | ${categories.join(', ')}`}
-	</span>
-	<span class="post-row-excerpt">{description}</span>
+<a class="post-row" href={`/posts/${post.id}/`}>
+  <!-- AI Content Badge for listings -->
+  {post.data?.ai_generated && <span class="ai-badge"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" role="img" focusable="false"><path fill="currentColor" d="M11.7 7a3.78 3.78 0 1 0 .35-7.52A3.78 3.78 0 0 0 11.7 7m6.9 4.5H15v2h3.6l-1.9 2.8" style="fill:currentColor;"/></svg><span class="ai-badge-label">AI content</span></span>}
+
+  <span class="post-row-title">{post.data?.title}</span>
+  <span class="post-row-meta">
+    Published: {post.data?.date ? new Date(post.data.date.toISOString()).toLocaleDateString() : ''}
+  </span>
+  <span class="post-row-excerpt">{post.data?.description ? post.data.description.slice(0, 100) : '...'}</span>
 </a>

@@ -4,6 +4,7 @@ description: Oldest sample post, to exercise pagination and archives.
 date: 2025-03-15
 categories: [Book]
 tags: [meta]
+ai_generated: true  <!-- Sample AI content post -->
 ---
 
 Sample content.

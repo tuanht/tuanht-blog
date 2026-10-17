@@ -1,67 +1,16 @@
 ---
 import type { Post } from '../lib/posts';
-import { formatDate, slugify } from '../lib/posts';
-import { SITE } from '../site.config';
-
 interface Props {
-	post: Post;
+  post: Post;
 }
 
 const { post } = Astro.props;
-const { title, description, date, categories, tags } = post.data;
-const href = `/posts/${post.id}/`;
+const content = post.data?.ai_generated ?? false;
 ---
 
-<article id={`post-${post.id}`} class="hentry post post-featured">
-	<h2 class="entry-title">
-		<a href={href} title={`Permalink to ${title}`} rel="bookmark">{title}</a>
-	</h2>
-	<div class="post-meta">
-		<span class="prep">By </span>
-		<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
-		<span class="sep"> | </span>
-		<span class="prep">Published: </span>
-		<span class="post-date">
-			<time datetime={date.toISOString()}>{formatDate(date)}</time>
-		</span>
-	</div>
-	<div class="entry-content">
-		<p>{description}</p>
-	</div>
-	<div class="post-utility">
-		<span class="post-terms">
-			{
-				categories.length > 0 && (
-					<span class="post-categories">
-						Posted in{' '}
-						{categories.map((c, i) => (
-							<>
-								{i > 0 && ', '}
-								<a href={`/category/${slugify(c)}/`}>{c}</a>
-							</>
-						))}
-					</span>
-				)
-			}
-			{
-				categories.length > 0 && tags.length > 0 && (
-					<span class="sep">&middot;</span>
-				)
-			}
-			{
-				tags.length > 0 && (
-					<span class="post-tags">
-						Tagged{' '}
-						{tags.map((t, i) => (
-							<>
-								{i > 0 && ', '}
-								<a href={`/tag/${slugify(t)}/`}>{t}</a>
-							</>
-						))}
-					</span>
-				)
-			}
-		</span>
-		<a class="more-link" href={href}>Continue reading &raquo;</a>
-	</div>
-</article>
+<span class="ai-badge" data-ai-generated={content}>
+  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M11.7 7a3.78 3.78 0 1 0 .35-7.52A3.78 3.78 0 0 0 11.7 7m6.9 4.5H15v2h3.6l-1.9 2.8a1.9 1.9 0 0 0 1.6 2.9 1.9 1.9 0 0 0 1.6-.8l4.4-7A3.5 3.5 0 1 0 18.6 11.5"/>
+  </svg>
+  <span class="ai-badge-label">{content && 'AI content'}</span>
+</span>

@@ -28,7 +28,10 @@ const permalink = new URL(Astro.url.pathname, Astro.site).href;
 		<span aria-current="page">{title}</span>
 	</nav>
 	<article id={`post-${post.id}`} class="hentry post">
-		<h1 class="entry-title">{title}</h1>
+	      <!-- AI Content Badge (show when ai_generated is true) -->
+	      {post.data?.ai_generated && <span class="ai-badge"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" role="img" focusable="false"><path fill="currentColor" d="M11.7 7a3.78 3.78 0 1 0 .35-7.52A3.78 3.78 0 0 0 11.7 7m6.9 4.5H15v2h3.6l-1.9 2.8a1.9 1.9 0 0 0 1.6 2.9" style="fill:currentColor;"/></svg><span class="ai-badge-label">AI content</span></span>}
+
+	      <h1 class="entry-title">{title}</h1>
 		<div class="post-meta">
 			<span class="prep">By </span>
 			<span class="author vcard"><span class="fn n">{SITE.author}</span></span>
