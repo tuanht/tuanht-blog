@@ -616,6 +616,22 @@ input[type='button']:hover {
 	font-style: normal;
 }
 
+.ai-badge {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 1px 8px;
+	border: 1px solid var(--muted);
+	background-color: var(--chip);
+	color: #fff;
+	font-size: 12px;
+	line-height: 16px;
+	white-space: nowrap;
+}
+
+.post-row .ai-badge {
+	margin: 0 0 0 8px;
+}
+
 .entry-content {
 	padding: 22px 0 0;
 }
