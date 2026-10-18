@@ -1465,6 +1465,14 @@ input[type='button']:hover {
 	display: block;
 }
 
+.post-row .sep {
+	display: inline;
+}
+
+.post-row .ai-badge {
+	display: inline-block;
+}
+
 .post-row-title {
 	color: var(--blue);
 	font-size: 19px;
