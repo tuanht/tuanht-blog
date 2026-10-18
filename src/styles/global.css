@@ -616,21 +616,12 @@ input[type='button']:hover {
 	font-style: normal;
 }
 
+/* Plain metadata item (after a "|" separator); inherits the row's size, colour and baseline. */
 .ai-badge {
-	display: inline-block;
-	margin-left: 8px;
-	padding: 1px 8px;
-	border: 1px solid var(--muted);
-	background-color: var(--chip);
-	color: #fff;
-	font-size: 12px;
-	line-height: 16px;
+	font-size: 0.8em;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 	white-space: nowrap;
-}
-
-.post-row .ai-badge {
-	display: inline-block;
-	margin: 0 0 0 8px;
 }
 
 .entry-content {

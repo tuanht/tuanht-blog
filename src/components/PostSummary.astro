@@ -24,8 +24,7 @@ const href = `/posts/${post.id}/`;
 		<span class="prep">Published: </span>
 		<span class="post-date">
 			<time datetime={date.toISOString()}>{formatDate(date)}</time>
-		</span>
-		{ai_generated && <AiBadge />}
+		</span>{ai_generated && <AiBadge />}
 	</div>
 	<div class="entry-content">
 		<p>{description}</p>
