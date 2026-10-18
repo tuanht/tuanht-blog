@@ -616,6 +616,14 @@ input[type='button']:hover {
 	font-style: normal;
 }
 
+/* Plain metadata item (after a "|" separator); inherits the row's size, colour and baseline. */
+.ai-badge {
+	font-size: 0.8em;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
 .entry-content {
 	padding: 22px 0 0;
 }
@@ -1455,6 +1463,14 @@ input[type='button']:hover {
 
 .post-row span {
 	display: block;
+}
+
+.post-row .sep {
+	display: inline;
+}
+
+.post-row .ai-badge {
+	display: inline-block;
 }
 
 .post-row-title {

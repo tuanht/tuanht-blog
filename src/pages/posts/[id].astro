@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { SITE } from '../../site.config';
+import AiBadge from '../../components/AiBadge.astro';
 import { getPosts, formatDate, slugify } from '../../lib/posts';
 
 export async function getStaticPaths() {
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { post, newer, older } = Astro.props;
-const { title, description, date, categories, tags, image } = post.data;
+const { title, description, date, categories, tags, image, ai_generated } = post.data;
 const { Content } = await render(post);
 const category = categories[0];
 const permalink = new URL(Astro.url.pathname, Astro.site).href;
@@ -36,7 +37,7 @@ const permalink = new URL(Astro.url.pathname, Astro.site).href;
 			<span class="prep">Published: </span>
 			<span class="post-date">
 				<time datetime={date.toISOString()}>{formatDate(date)}</time>
-			</span>
+			</span>{ai_generated && <AiBadge />}
 		</div>
 		<div class="entry-content">
 			<Content />

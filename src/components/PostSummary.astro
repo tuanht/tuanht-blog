@@ -2,13 +2,14 @@
 import type { Post } from '../lib/posts';
 import { formatDate, slugify } from '../lib/posts';
 import { SITE } from '../site.config';
+import AiBadge from './AiBadge.astro';
 
 interface Props {
 	post: Post;
 }
 
 const { post } = Astro.props;
-const { title, description, date, categories, tags } = post.data;
+const { title, description, date, categories, tags, ai_generated } = post.data;
 const href = `/posts/${post.id}/`;
 ---
 
@@ -23,7 +24,7 @@ const href = `/posts/${post.id}/`;
 		<span class="prep">Published: </span>
 		<span class="post-date">
 			<time datetime={date.toISOString()}>{formatDate(date)}</time>
-		</span>
+		</span>{ai_generated && <AiBadge />}
 	</div>
 	<div class="entry-content">
 		<p>{description}</p>
